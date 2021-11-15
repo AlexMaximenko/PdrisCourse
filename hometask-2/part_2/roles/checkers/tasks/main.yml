@@ -1,0 +1,57 @@
+---
+- name: System os detection 
+  debug: var=ansible_os_family
+  
+- name: Gather the package facts
+  package_facts:
+    manager: auto
+    
+- name: Downloading project repo
+  git:
+    repo: '{{ github_checkers_link }}'
+    dest: '{{ project_directory  }}'
+    
+- block: #Debian Python + Pip installing
+  - name: Installing Python if necessary
+    apt:
+      update_cache: yes
+      name: python3
+      state: latest
+    when: "'python3' not in ansible_facts.packages"
+  - name: Installing Pip if necessary
+    apt:
+      update_cache: yes
+      name: python3-pip
+      state: latest
+    when: "'python3-pip' not in ansible_facts.packages"
+  when: ansible_os_family == "Debian"
+  
+- block: #CentOs Python + Pip installing
+  - name: Installing Python if necessary
+    yum:
+      update_cache: yes
+      name: python3
+      state: present
+    when: "'python3' not in ansible_facts.packages"
+  - name: Installing Pip if necessary
+    yum:
+      update_cache: yes
+      name: python3-pip
+      state: present
+    when: "'python3-pip' not in ansible_facts.packages"
+  when: ansible_os_family == "RedHat"
+  
+- block: # Pip install requirements
+  - name: Installing numpy
+    pip:
+      executable: pip3
+      name: numpy
+      state: latest
+      
+  - name: Installing pygame
+    pip:
+      executable: pip3
+      name: pygame
+      state: latest
+  
+...
