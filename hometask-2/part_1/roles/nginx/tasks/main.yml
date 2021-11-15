@@ -1,0 +1,73 @@
+---
+- name: System os detection 
+  debug: var=ansible_os_family
+  
+- name: Gather the package facts
+  package_facts:
+    manager: auto
+    
+#- name: Print the package facts
+#  debug:
+#    var: ansible_facts.packages   
+  
+- name: Gather the service_facts
+  service_facts:
+  
+#- name: Print service facts
+#  debug:
+#    var: ansible_facts.services
+  
+- name: Copying nginx config
+  template:
+    src: ./roles/nginx/templates/nginx.conf
+    dest: /etc/nginx/conf.d/maximenko_ae.conf
+  
+- name: Creating directory for nginx
+  file:
+    path: /var/www/html/maximenko_ae
+    state: directory
+    mode: '0777'
+
+- name: Copying nginx files
+  template:
+    src: ./roles/nginx/templates/index.html
+    dest: /var/www/html/maximenko_ae/index.html 
+  
+- block: #Debian
+  - name: Installing nginx if necessary
+    apt: 
+      update_cache: yes 
+      name: nginx 
+      state: latest
+    when: "'nginx' not in ansible_facts.packages"
+
+  - name: Reloading nginx configuration if it's running
+    shell: nginx -s reload
+    when: "'nginx' in ansible_facts.services and ansible_facts.services['nginx'].state == 'running'"
+
+  - name: Starting nginx if it isn't running
+    service: 
+      name: nginx 
+      state: started
+    when: "'nginx' not in ansible_facts.services or ansible_facts.services['nginx'].state != 'running'"
+  when: ansible_os_family == "Debian"
+  
+- block: #CentOS
+  - name: Installing nginx if necessary
+    yum: 
+      name: nginx
+      state: latest
+      update_cache: yes
+    when: "'nginx' not in ansible_facts.packages"
+
+  - name: Reloading nginx configuration if it's running
+    shell: nginx -s reload
+    when: "'nginx' in ansible_facts.services and ansible_facts.services['nginx'].state == 'running'"
+
+  - name: Starting nginx if it isn't running
+    service: 
+      name: nginx 
+      state: started
+    when: "'nginx' not in ansible_facts.services or ansible_facts.services['nginx'].state != 'running'"
+  when: ansible_os_family == "RedHat"
+...
