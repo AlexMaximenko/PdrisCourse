@@ -1,6 +1,8 @@
-import org.junit.Test;
+package sbt;
 
-import static org.junit.Assert.*;
+import org.junit.Test;
+import sbt.Car;
+import sbt.CarVelocityComparator;
 
 public class CarVelocityComparatorTest {
 

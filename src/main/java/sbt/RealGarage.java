@@ -1,4 +1,5 @@
-import javax.swing.*;
+package sbt;
+
 import java.util.*;
 
 public class RealGarage implements Garage{

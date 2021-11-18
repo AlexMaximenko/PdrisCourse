@@ -1,3 +1,5 @@
+package sbt;
+
 import java.util.Objects;
 
 public class Owner {
@@ -8,7 +10,7 @@ public class Owner {
 
     @Override
     public String toString() {
-        return "Owner{" +
+        return "sbt.Owner{" +
                 "name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", age=" + age +

@@ -1,3 +1,5 @@
+package sbt;
+
 import java.util.Objects;
 
 public class Car {
@@ -23,7 +25,7 @@ public class Car {
 
     @Override
     public String toString() {
-        return "Car{" +
+        return "sbt.Car{" +
                 "carId=" + carId +
                 ", brand='" + brand + '\'' +
                 ", modelName='" + modelName + '\'' +

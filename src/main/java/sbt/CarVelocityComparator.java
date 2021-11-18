@@ -1,3 +1,5 @@
+package sbt;
+
 import java.util.Comparator;
 
 public class CarVelocityComparator implements Comparator<Car> {

@@ -1,5 +1,8 @@
-//import org.junit.BeforeAll;
+package sbt;//import org.junit.BeforeAll;
 import org.junit.Test;
+import sbt.Car;
+import sbt.Owner;
+import sbt.RealGarage;
 //import org.junit.TestInstance;
 
 import java.util.ArrayList;

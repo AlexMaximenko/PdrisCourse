@@ -1,3 +1,5 @@
+package sbt;
+
 import java.util.Collection;
 
 public interface Garage {

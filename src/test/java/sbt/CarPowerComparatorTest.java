@@ -1,4 +1,8 @@
+package sbt;
+
 import org.junit.Test;
+import sbt.Car;
+import sbt.CarPowerComparator;
 
 public class CarPowerComparatorTest {
 
