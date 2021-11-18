@@ -105,8 +105,6 @@ public class RealGarage implements Garage{
         carsByBrand.get(car.getBrand()).add(car);
 
         this.carsByOwner.computeIfAbsent(owner, k -> new HashSet<Car>());
-        //if (!this.carsByOwner.containsKey(owner))
-        //    carsByOwner.put(owner, new HashSet<Car>());
         carsByOwner.get(owner).add(car);
 
         carsByVelocity.add(car);
