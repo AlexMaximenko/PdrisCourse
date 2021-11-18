@@ -1,0 +1,23 @@
+---
+
+- name: Some Java Application
+  hosts: all
+  become: yes
+  
+  tasks:    
+    - name: Creating directory
+      file:
+        path: /home/mftiedu/maximenko_ae/hometask-3
+        state: directory
+        mode: '0777'
+    
+    - name: Copying Jar
+      copy:
+        src: ./target/applicationForJenkins-1.0-SNAPSHOT.jar
+        dest: /home/mftiedu/maximenko_ae/hometask-3
+    
+    - name: Deploying Jar
+      become: yes
+      shell: cd /home/mftiedu/maximenko_ae/hometask-3 && java -jar applicationForJenkins-1.0-SNAPSHOT.jar 
+        
+...
