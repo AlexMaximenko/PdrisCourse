@@ -11,12 +11,12 @@ public class RealGarage implements Garage{
     private HashMap<Integer, Owner> ownerById;
 
     public RealGarage() {
-        carsByBrand = new HashMap<String, HashSet<Car>>();
-        carsByOwner = new HashMap<Owner, HashSet<Car>>();
-        carsByPower = new TreeSet<Car>(new CarPowerComparator());
-        carsByVelocity = new TreeSet<Car>(new CarVelocityComparator());
+        carsByBrand = new HashMap<>();
+        carsByOwner = new HashMap<>();
+        carsByPower = new TreeSet<>(new CarPowerComparator());
+        carsByVelocity = new TreeSet<>(new CarVelocityComparator());
         carById = new HashMap<Integer, Car>();
-        ownerById = new HashMap<Integer, Owner>();
+        ownerById = new HashMap<>();
     }
 
 
@@ -27,7 +27,7 @@ public class RealGarage implements Garage{
 
     @Override
     public Collection<Car> topThreeCarsByMaxVelocity() {
-        HashSet<Car> fastestCars = new HashSet<Car>();
+        HashSet<Car> fastestCars = new HashSet<>();
         Iterator<Car> iterator = carsByVelocity.descendingIterator();
         for (int i = 0; i < 3; i++) {
             fastestCars.add(iterator.next());
@@ -53,7 +53,7 @@ public class RealGarage implements Garage{
     @Override
     public int meanOwnersAgeOfCarBrand(String brand) {
         Collection<Car> cars = this.allCarsOfBrand(brand);
-        HashSet<Owner> uniqueOwners = new HashSet<Owner>();
+        HashSet<Owner> uniqueOwners = new HashSet<>();
 
         for (Car car : cars) {
             uniqueOwners.add(ownerById.get(car.getOwnerId()));
@@ -104,7 +104,7 @@ public class RealGarage implements Garage{
             carsByBrand.put(car.getBrand(), new HashSet<Car>());
         carsByBrand.get(car.getBrand()).add(car);
 
-        this.carsByOwner.computeIfAbsent(owner, k -> new HashSet<Car>());
+        this.carsByOwner.computeIfAbsent(owner, k -> new HashSet<>());
         carsByOwner.get(owner).add(car);
 
         carsByVelocity.add(car);
