@@ -15,7 +15,7 @@ public class RealGarage implements Garage{
         carsByOwner = new HashMap<>();
         carsByPower = new TreeSet<>(new CarPowerComparator());
         carsByVelocity = new TreeSet<>(new CarVelocityComparator());
-        carById = new HashMap<Integer, Car>();
+        carById = new HashMap<>();
         ownerById = new HashMap<>();
     }
 
@@ -101,7 +101,7 @@ public class RealGarage implements Garage{
 
         carById.put(car.getCarId(), car);
         if (!this.carsByBrand.containsKey(car.getBrand()))
-            carsByBrand.put(car.getBrand(), new HashSet<Car>());
+            carsByBrand.put(car.getBrand(), new HashSet<>());
         carsByBrand.get(car.getBrand()).add(car);
 
         this.carsByOwner.computeIfAbsent(owner, k -> new HashSet<>());
