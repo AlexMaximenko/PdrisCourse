@@ -1,0 +1,20 @@
+version: "3.3"
+
+services:
+  server:
+    build: server/
+    
+    command: python ./server.py
+    
+    ports:
+      - 3001:3001
+      
+  client:
+    build: client/
+    
+    command: python ./client.py
+    
+    network_mode: host
+    
+    depends_on:
+      - server
