@@ -7,4 +7,4 @@ import socketserver
 handler = http.server.SimpleHTTPRequestHandler
 
 with socketserver.TCPServer(("", 3001), handler) as httpd:
-   httpd.serve_forever()
+   httpd.handle_request()
