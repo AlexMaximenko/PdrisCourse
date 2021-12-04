@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: client
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      name: client-pod
+      labels:
+        app: client
+    spec:
+      containers:
+      - image: alex2612/client_image_second
+        name: client
+        ports:
+        - containerPort: 3001

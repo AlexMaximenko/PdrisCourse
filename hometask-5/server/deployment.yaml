@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: server
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      name: server-pod
+      labels:
+        app: server
+    spec:
+      containers:
+      - image: alex2612/server_image_second
+        name: server
+        ports:
+        - containerPort: 3001

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: server-pod
+  labels:
+    app: server
+spec:
+  containers:
+  - image: alex2612/server_image_second
+    name: server
+    ports:
+    - containerPort: 3001
